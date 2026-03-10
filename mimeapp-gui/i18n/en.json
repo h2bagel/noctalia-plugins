@@ -15,11 +15,5 @@
       "button": "Apply",
       "saving": "Saving..."
     }
-  },
-  "settings": {
-    "showOnlyConflicts": {
-      "label": "Show only MIME types with multiple handlers",
-      "description": "When disabled, all detected MIME types are listed."
-    }
   }
 }

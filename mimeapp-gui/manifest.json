@@ -1,7 +1,7 @@
 {
   "id": "mimeapp-gui",
   "name": "MimeApp GUI",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "minNoctaliaVersion": "4.1.2",
   "author": "mdusome",
   "official": false,
@@ -25,7 +25,132 @@
   },
   "metadata": {
     "defaultSettings": {
-      "showOnlyConflicts": true
+      "commonGroups": [
+        {
+          "key": "web-browser",
+          "label": "Web browser",
+          "category": "Internet",
+          "categoryOrder": 0,
+          "mimeTypes": [
+            "x-scheme-handler/http",
+            "x-scheme-handler/https"
+          ]
+        },
+        {
+          "key": "email-client",
+          "label": "Email client",
+          "category": "Internet",
+          "categoryOrder": 0,
+          "mimeTypes": [
+            "x-scheme-handler/mailto"
+          ]
+        },
+        {
+          "key": "image-viewer",
+          "label": "Image viewer",
+          "category": "Multimedia",
+          "categoryOrder": 1,
+          "mimeTypes": [
+            "image/png",
+            "image/jpeg",
+            "image/gif"
+          ]
+        },
+        {
+          "key": "music-player",
+          "label": "Music player",
+          "category": "Multimedia",
+          "categoryOrder": 1,
+          "mimeTypes": [
+            "audio/mpeg",
+            "audio/flac"
+          ]
+        },
+        {
+          "key": "video-player",
+          "label": "Video player",
+          "category": "Multimedia",
+          "categoryOrder": 1,
+          "mimeTypes": [
+            "video/mp4",
+            "video/x-matroska"
+          ]
+        },
+        {
+          "key": "text-editor",
+          "label": "Text editor",
+          "category": "Documents",
+          "categoryOrder": 2,
+          "mimeTypes": [
+            "text/plain"
+          ]
+        },
+        {
+          "key": "html-viewer",
+          "label": "HTML viewer",
+          "category": "Documents",
+          "categoryOrder": 2,
+          "mimeTypes": [
+            "text/html"
+          ]
+        },
+        {
+          "key": "pdf-viewer",
+          "label": "PDF viewer",
+          "category": "Documents",
+          "categoryOrder": 2,
+          "mimeTypes": [
+            "application/pdf"
+          ]
+        },
+        {
+          "key": "word-processor",
+          "label": "Word processor",
+          "category": "Documents",
+          "categoryOrder": 2,
+          "mimeTypes": [
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          ]
+        },
+        {
+          "key": "spreadsheet",
+          "label": "Spreadsheet",
+          "category": "Documents",
+          "categoryOrder": 2,
+          "mimeTypes": [
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          ]
+        },
+        {
+          "key": "presentation",
+          "label": "Presentation",
+          "category": "Documents",
+          "categoryOrder": 2,
+          "mimeTypes": [
+            "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+          ]
+        },
+        {
+          "key": "file-manager",
+          "label": "File manager",
+          "category": "Utilities",
+          "categoryOrder": 3,
+          "mimeTypes": [
+            "inode/directory"
+          ]
+        },
+        {
+          "key": "archive-manager",
+          "label": "Archive manager",
+          "category": "Utilities",
+          "categoryOrder": 3,
+          "mimeTypes": [
+            "application/zip",
+            "application/x-tar",
+            "application/gzip"
+          ]
+        }
+      ]
     }
   }
 }
