@@ -39,6 +39,14 @@
             "label": "按键背景颜色",
             "description": "每个按键胶囊的背景颜色"
         },
+        "useCustomColors": {
+            "label": "使用自定义颜色",
+            "description": "覆盖您的 Noctalia shell 主题配色方案"
+        },
+        "monitors": {
+            "label": "活跃显示器",
+            "description": "选择在哪些显示器上显示按键浮窗"
+        },
         "preview": {
             "label": "预览"
         }

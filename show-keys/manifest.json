@@ -8,9 +8,8 @@
     "repository": "https://github.com/noctalia-dev/noctalia-plugins",
     "description": "Floating OSD that displays keyboard input in real-time via evtest.",
     "tags": [
-        "OSD",
-        "Keyboard",
-        "Input"
+        "Indicator",
+        "System"
     ],
     "entryPoints": {
         "main": "Main.qml",
@@ -23,11 +22,10 @@
         "defaultSettings": {
             "captureEnabled": true,
             "evtestDevice": "/dev/input/event3",
-            "pillColor": "#ffffff",
-            "pillBg": "#000000",
             "position": "bottom",
             "marginPx": 60,
-            "hideDelaySec": 2
+            "hideDelaySec": 2,
+            "disabledScreens": []
         }
     }
 }

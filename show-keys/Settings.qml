@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import Quickshell
 import qs.Commons
 import qs.Widgets
 
@@ -13,12 +14,15 @@ ColumnLayout {
 
     // ── Local edit state ─────────────────────────────────
     property bool   editCapture:  cfg.captureEnabled ?? def.captureEnabled ?? true
-    property string editDevice:    cfg.evtestDevice   || def.evtestDevice   || "/dev/input/event3"
-    property string editPillColor: cfg.pillColor  || def.pillColor  || "#ffffff"
-    property string editPillBg:    cfg.pillBg     || def.pillBg     || "#000000"
+    property string editDevice:   cfg.evtestDevice   || def.evtestDevice   || "/dev/input/event3"
+    property bool   editUseCustomColors: cfg.useCustomColors ?? def.useCustomColors ?? false
+    property string editPillColor: cfg.pillColor ? cfg.pillColor : (def.pillColor ? def.pillColor : Color.mPrimary.toString())
+    property string editPillBg:    cfg.pillBg    ? cfg.pillBg    : (def.pillBg    ? def.pillBg    : Color.mSurface.toString())
     property string editPosition:  cfg.position   || def.position   || "bottom"
     property int    editMargin:    cfg.marginPx   ?? def.marginPx   ?? 60
     property int    editDelay:     cfg.hideDelaySec ?? def.hideDelaySec ?? 2
+
+    property var editDisabledScreens: cfg.disabledScreens ? cfg.disabledScreens.slice() : (def.disabledScreens ? def.disabledScreens.slice() : [])
 
     spacing: Style.marginL
 
@@ -136,6 +140,49 @@ ColumnLayout {
         }
     }
 
+    // ── Monitors ─────────────────────────────────────────
+    ColumnLayout {
+        Layout.fillWidth: true
+        spacing: Style.marginS
+
+        NLabel {
+            label: pluginApi?.tr("settings.monitors.label") || "Active Monitors"
+            description: pluginApi?.tr("settings.monitors.description") || "Select which monitors will display the key overlay"
+        }
+
+        Repeater {
+            model: Quickshell.screens
+            
+            NToggle {
+                Layout.fillWidth: true
+                label: modelData.name
+                
+                // Checked if NOT in the disabled array
+                checked: root.editDisabledScreens.indexOf(modelData.name) === -1
+                
+                onToggled: function(isChecked) {
+                    var arr = root.editDisabledScreens.slice();
+                    var idx = arr.indexOf(modelData.name);
+                    
+                    if (isChecked) {
+                        // Remove from disabled list
+                        if (idx !== -1) arr.splice(idx, 1);
+                    } else {
+                        // Add to disabled list
+                        if (idx === -1) arr.push(modelData.name);
+                    }
+                    root.editDisabledScreens = arr;
+                }
+            }
+        }
+    }
+
+    NDivider {
+        Layout.fillWidth: true
+        Layout.topMargin: Style.marginS
+        Layout.bottomMargin: Style.marginS
+    }
+
     // ── Position ─────────────────────────────────────────
     ColumnLayout {
         Layout.fillWidth: true
@@ -204,9 +251,18 @@ ColumnLayout {
     }
 
     // ── Colors ───────────────────────────────────────────
+    NToggle {
+        Layout.fillWidth: true
+        label: pluginApi?.tr("settings.useCustomColors.label") || "Use Custom Colors"
+        description: pluginApi?.tr("settings.useCustomColors.description") || "Override Noctalia default theme colors"
+        checked: root.editUseCustomColors
+        onToggled: checked => root.editUseCustomColors = checked
+    }
+
     ColumnLayout {
         Layout.fillWidth: true
         spacing: Style.marginS
+        visible: root.editUseCustomColors
 
         NLabel {
             label: pluginApi?.tr("settings.pillColor.label") || "Pill Text Color"
@@ -224,6 +280,7 @@ ColumnLayout {
     ColumnLayout {
         Layout.fillWidth: true
         spacing: Style.marginS
+        visible: root.editUseCustomColors
 
         NLabel {
             label: pluginApi?.tr("settings.pillBg.label") || "Pill Background Color"
@@ -260,15 +317,18 @@ ColumnLayout {
                 width: previewText.implicitWidth + 20
                 height: 36
                 radius: 8
-                color: Qt.alpha(root.editPillBg, 0.8)
-                border.color: Qt.alpha(root.editPillColor, 0.27)
+                readonly property color previewBg: root.editUseCustomColors ? root.editPillBg : Color.mSurface
+                readonly property color previewFg: root.editUseCustomColors ? root.editPillColor : Color.mPrimary
+                
+                color: Qt.alpha(previewBg, 0.8)
+                border.color: Qt.alpha(previewFg, 0.27)
                 border.width: 1
 
                 Text {
                     id: previewText
                     anchors.centerIn: parent
                     text: modelData
-                    color: root.editPillColor
+                    color: parent.previewFg
                     font.pixelSize: 16
                     font.family: "monospace"
                     font.bold: true
@@ -283,11 +343,21 @@ ColumnLayout {
 
         pluginApi.pluginSettings.captureEnabled = root.editCapture;
         pluginApi.pluginSettings.evtestDevice   = root.editDevice;
-        pluginApi.pluginSettings.pillColor      = root.editPillColor.toString();
-        pluginApi.pluginSettings.pillBg         = root.editPillBg.toString();
+        pluginApi.pluginSettings.useCustomColors= root.editUseCustomColors;
+        
+        if (root.editUseCustomColors) {
+            pluginApi.pluginSettings.pillColor  = root.editPillColor.toString();
+            pluginApi.pluginSettings.pillBg     = root.editPillBg.toString();
+        } else {
+            pluginApi.pluginSettings.pillColor  = "";
+            pluginApi.pluginSettings.pillBg     = "";
+        }
+        
         pluginApi.pluginSettings.position       = root.editPosition;
+
         pluginApi.pluginSettings.marginPx       = root.editMargin;
         pluginApi.pluginSettings.hideDelaySec   = root.editDelay;
+        pluginApi.pluginSettings.disabledScreens= root.editDisabledScreens;
 
         pluginApi.saveSettings();
     }

@@ -39,6 +39,14 @@
             "label": "Pill Background Color",
             "description": "Background color of each key pill"
         },
+        "useCustomColors": {
+            "label": "Use Custom Colors",
+            "description": "Override your Noctalia shell theme colors"
+        },
+        "monitors": {
+            "label": "Active Monitors",
+            "description": "Select which monitors will display the key overlay"
+        },
         "preview": {
             "label": "Preview"
         }
