@@ -35,6 +35,11 @@ ColumnLayout {
     pluginApi?.manifest?.metadata?.defaultSettings?.hideDisconnected ??
     false
 
+  property bool editHideMullvadExitNodes:
+    pluginApi?.pluginSettings?.hideMullvadExitNodes ??
+    pluginApi?.manifest?.metadata?.defaultSettings?.hideMullvadExitNodes ??
+    true
+
   property string editTerminalCommand:
     pluginApi?.pluginSettings?.terminalCommand ||
     pluginApi?.manifest?.metadata?.defaultSettings?.terminalCommand ||
@@ -152,6 +157,14 @@ ColumnLayout {
     onToggled: checked => root.editHideDisconnected = checked
   }
 
+  NToggle {
+    Layout.fillWidth: true
+    label: pluginApi?.tr("settings.hide-mullvad-exit-nodes") || "Hide Mullvad Exit Nodes"
+    description: pluginApi?.tr("settings.hide-mullvad-exit-nodes-desc") || "Hide Mullvad VPN exit nodes from the peer list"
+    checked: root.editHideMullvadExitNodes
+    onToggled: checked => root.editHideMullvadExitNodes = checked
+  }
+
   // Terminal section
   NDivider {
     Layout.fillWidth: true
@@ -224,6 +237,7 @@ ColumnLayout {
     pluginApi.pluginSettings.showIpAddress = root.editShowIpAddress
     pluginApi.pluginSettings.showPeerCount = root.editShowPeerCount
     pluginApi.pluginSettings.hideDisconnected = root.editHideDisconnected
+    pluginApi.pluginSettings.hideMullvadExitNodes = root.editHideMullvadExitNodes
     pluginApi.pluginSettings.terminalCommand = root.editTerminalCommand
     pluginApi.pluginSettings.pingCount = root.editPingCount
     pluginApi.pluginSettings.defaultPeerAction = root.editDefaultPeerAction

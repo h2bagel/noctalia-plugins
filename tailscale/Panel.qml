@@ -165,6 +165,11 @@ Item {
     pluginApi?.manifest?.metadata?.defaultSettings?.hideDisconnected ??
     false
 
+  readonly property bool hideMullvadExitNodes:
+    pluginApi?.pluginSettings?.hideMullvadExitNodes ??
+    pluginApi?.manifest?.metadata?.defaultSettings?.hideMullvadExitNodes ??
+    true
+
   readonly property string terminalCommand:
     pluginApi?.pluginSettings?.terminalCommand ||
     pluginApi?.manifest?.metadata?.defaultSettings?.terminalCommand ||
@@ -190,6 +195,13 @@ Item {
     if (hideDisconnected) {
       peers = peers.filter(function(peer) {
         return peer.Online === true
+      })
+    }
+
+    // Filter out Mullvad exit nodes if setting is enabled
+    if (hideMullvadExitNodes) {
+      peers = peers.filter(function(peer) {
+        return !(peer.DNSName || "").endsWith(".mullvad.ts.net.")
       })
     }
     

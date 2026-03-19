@@ -13,6 +13,8 @@
     "show-peers-desc": "Visa antal anslutna enheter i fältet",
     "hide-disconnected": "Dölj frånkopplade peers",
     "hide-disconnected-desc": "Visa endast online peers i panelen",
+    "hide-mullvad-exit-nodes": "Dölj Mullvad-utgångsnoder",
+    "hide-mullvad-exit-nodes-desc": "Dölj Mullvad VPN-utgångsnoder från peer-listan",
     "terminal": "Terminalkonfiguration",
     "terminal-command": "Terminalkommando",
     "terminal-command-desc": "Kommando för att starta terminal för SSH/ping (t.ex. 'ghostty', 'alacritty', 'kitty')",
