@@ -18,12 +18,5 @@ Item {
       }
     }
 
-    function toggle() {
-      if (root.pluginApi) {
-        root.pluginApi.withCurrentScreen(screen => {
-          root.pluginApi.togglePanel(screen)
-        })
-      }
-    }
   }
 }

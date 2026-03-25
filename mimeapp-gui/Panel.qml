@@ -47,7 +47,7 @@ Item {
     "application/vnd.openxmlformats-officedocument.presentationml.presentation"
   ]
   property var groupTabs: [
-    { "key": "all", "name": "All", "count": 0 }
+    { "key": "all", "name": pluginApi?.tr("panel.tab.all"), "count": 0 }
   ]
 
   property ListModel entriesModel: ListModel {}
@@ -58,26 +58,26 @@ Item {
   property bool batchApplying: false
 
   property var commonTypesMeta: ({
-    "x-scheme-handler/http":   { label: "Web browser",    category: "Internet",   categoryOrder: 0 },
-    "x-scheme-handler/https":  { label: "HTTPS browser",  category: "Internet",   categoryOrder: 0 },
-    "x-scheme-handler/mailto": { label: "Email client",   category: "Internet",   categoryOrder: 0 },
-    "image/png":               { label: "Image viewer (.png)",   category: "Multimedia", categoryOrder: 1 },
-    "image/jpeg":              { label: "Image viewer (.jpg)",   category: "Multimedia", categoryOrder: 1 },
-    "image/gif":               { label: "Image viewer (.gif)",   category: "Multimedia", categoryOrder: 1 },
-    "audio/mpeg":              { label: "Music player (.mp3)",   category: "Multimedia", categoryOrder: 1 },
-    "audio/flac":              { label: "Music player (.flac)",   category: "Multimedia", categoryOrder: 1 },
-    "video/mp4":               { label: "Video player (.mp4)",   category: "Multimedia", categoryOrder: 1 },
-    "video/x-matroska":        { label: "Video player (.mkv)",   category: "Multimedia", categoryOrder: 1 },
-    "text/plain":              { label: "Text editor",    category: "Documents",  categoryOrder: 2 },
-    "text/html":               { label: "HTML viewer",    category: "Documents",  categoryOrder: 2 },
-    "application/pdf":         { label: "PDF viewer",     category: "Documents",  categoryOrder: 2 },
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document":   { label: "Word processor", category: "Documents", categoryOrder: 2 },
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":         { label: "Spreadsheet",    category: "Documents", categoryOrder: 2 },
-    "application/vnd.openxmlformats-officedocument.presentationml.presentation": { label: "Presentation",   category: "Documents", categoryOrder: 2 },
-    "inode/directory":         { label: "File manager",   category: "Utilities",  categoryOrder: 3 },
-    "application/zip":         { label: "Archive manager (.zip)", category: "Utilities", categoryOrder: 3 },
-    "application/x-tar":       { label: "Archive manager (.tar)", category: "Utilities", categoryOrder: 3 },
-    "application/gzip":        { label: "Archive manager (.gz)", category: "Utilities", categoryOrder: 3 }
+    "x-scheme-handler/http":   { label: pluginApi?.tr("mime.http"),    category: pluginApi?.tr("category.internet"),   categoryOrder: 0 },
+    "x-scheme-handler/https":  { label: pluginApi?.tr("mime.https"),  category: pluginApi?.tr("category.internet"),   categoryOrder: 0 },
+    "x-scheme-handler/mailto": { label: pluginApi?.tr("mime.mailto"),   category: pluginApi?.tr("category.internet"),   categoryOrder: 0 },
+    "image/png":               { label: pluginApi?.tr("mime.png"),   category: pluginApi?.tr("category.multimedia"), categoryOrder: 1 },
+    "image/jpeg":              { label: pluginApi?.tr("mime.jpeg"),   category: pluginApi?.tr("category.multimedia"), categoryOrder: 1 },
+    "image/gif":               { label: pluginApi?.tr("mime.gif"),   category: pluginApi?.tr("category.multimedia"), categoryOrder: 1 },
+    "audio/mpeg":              { label: pluginApi?.tr("mime.mp3"),   category: pluginApi?.tr("category.multimedia"), categoryOrder: 1 },
+    "audio/flac":              { label: pluginApi?.tr("mime.flac"),   category: pluginApi?.tr("category.multimedia"), categoryOrder: 1 },
+    "video/mp4":               { label: pluginApi?.tr("mime.mp4"),   category: pluginApi?.tr("category.multimedia"), categoryOrder: 1 },
+    "video/x-matroska":        { label: pluginApi?.tr("mime.mkv"),   category: pluginApi?.tr("category.multimedia"), categoryOrder: 1 },
+    "text/plain":              { label: pluginApi?.tr("mime.text"),    category: pluginApi?.tr("category.documents"),  categoryOrder: 2 },
+    "text/html":               { label: pluginApi?.tr("mime.html"),    category: pluginApi?.tr("category.documents"),  categoryOrder: 2 },
+    "application/pdf":         { label: pluginApi?.tr("mime.pdf"),     category: pluginApi?.tr("category.documents"),  categoryOrder: 2 },
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document":   { label: pluginApi?.tr("mime.word"), category: pluginApi?.tr("category.documents"), categoryOrder: 2 },
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":         { label: pluginApi?.tr("mime.spreadsheet"),    category: pluginApi?.tr("category.documents"), categoryOrder: 2 },
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation": { label: pluginApi?.tr("mime.presentation"),   category: pluginApi?.tr("category.documents"), categoryOrder: 2 },
+    "inode/directory":         { label: pluginApi?.tr("mime.directory"),   category: pluginApi?.tr("category.utilities"),  categoryOrder: 3 },
+    "application/zip":         { label: pluginApi?.tr("mime.zip"), category: pluginApi?.tr("category.utilities"), categoryOrder: 3 },
+    "application/x-tar":       { label: pluginApi?.tr("mime.tar"), category: pluginApi?.tr("category.utilities"), categoryOrder: 3 },
+    "application/gzip":        { label: pluginApi?.tr("mime.gz"), category: pluginApi?.tr("category.utilities"), categoryOrder: 3 }
   })
 
   function updateBackendPath() {
@@ -91,7 +91,7 @@ Item {
   function refreshList() {
     if (loading) return
     if (backendPath === "") {
-      statusMessage = "Backend path not ready yet."
+      statusMessage = pluginApi?.tr("panel.status.backendNotReady")
       return
     }
     statusMessage = ""
@@ -117,7 +117,7 @@ Item {
     if (!groupTabs || selectedGroupIndex < 0 || selectedGroupIndex >= groupTabs.length) {
       return "all"
     }
-    return groupTabs[selectedGroupIndex].key || "all"
+    return groupTabs[selectedGroupIndex].key
   }
 
   function rebuildGroupTabs() {
@@ -186,12 +186,12 @@ Item {
       })
     }
 
-    if (group === "common") {
+   
       items.sort(function(a, b) {
         if (a.categoryOrder !== b.categoryOrder) return a.categoryOrder - b.categoryOrder
         return a.friendlyLabel < b.friendlyLabel ? -1 : (a.friendlyLabel > b.friendlyLabel ? 1 : 0)
       })
-    }
+    
 
     for (var j = 0; j < items.length; j++) {
       filteredEntriesModel.append(items[j])
@@ -311,14 +311,14 @@ Item {
       root.loading = false
 
       if (exitCode !== 0) {
-        root.statusMessage = scanStderr.text.trim() || "Failed to scan MIME handlers. Ensure python3 is installed and available in PATH."
+        root.statusMessage = scanStderr.text.trim() || pluginApi?.tr("panel.error.scanFailed")
         return
       }
 
       try {
         var payload = JSON.parse(scanStdout.text)
         if (!payload.ok) {
-          root.statusMessage = payload.error || "Scan failed."
+          root.statusMessage = payload.error || pluginApi?.tr("panel.error.scanFailedGeneric")
           return
         }
 
@@ -349,11 +349,11 @@ Item {
 
         if (root.filteredEntriesModel.count === 0) {
           root.statusMessage = root.showOnlyConflicts
-            ? "No MIME types with multiple handlers were found."
-            : "No MIME handlers were found from installed desktop files."
+            ? pluginApi?.tr("panel.status.noConflicts")
+            : pluginApi?.tr("panel.status.noHandlers")
         }
       } catch (e) {
-        root.statusMessage = "Failed to parse scan result: " + e
+        root.statusMessage = pluginApi?.tr("panel.error.parseScanResult", { error: e })
       }
     }
   }
@@ -382,7 +382,7 @@ Item {
       }
 
       if (exitCode !== 0) {
-        var message = setStderr.text.trim() || "Failed to save default application. Ensure python3 is installed and available in PATH."
+        var message = setStderr.text.trim() || pluginApi?.tr("panel.error.saveFailed")
         root.statusMessage = message
         if (index >= 0 && index < root.entriesModel.count) {
           root.entriesModel.setProperty(index, "applyError", message)
@@ -396,7 +396,7 @@ Item {
       try {
         var payload = JSON.parse(setStdout.text)
         if (!payload.ok) {
-          var error = payload.error || "Failed to save default application."
+          var error = payload.error || pluginApi?.tr("panel.error.saveFailedGeneric")
           root.statusMessage = error
           if (index >= 0 && index < root.entriesModel.count) {
             root.entriesModel.setProperty(index, "applyError", error)
@@ -417,9 +417,9 @@ Item {
           root.syncFilteredRowFromSource(index)
         }
 
-        root.statusMessage = "Updated default for " + (payload.mimeType || "selected MIME type") + "."
+        root.statusMessage = pluginApi?.tr("panel.status.updatedDefault", { mimeType: payload.mimeType })
       } catch (e) {
-        root.statusMessage = "Default updated, but response parsing failed: " + e
+        root.statusMessage = pluginApi?.tr("panel.status.updatedDefaultParseError", { error: e })
       }
 
       if (root.applyQueue.length > 0) {
@@ -447,7 +447,7 @@ Item {
         Layout.fillWidth: true
 
         NText {
-          text: pluginApi?.tr("panel.title") || "MimeApp GUI"
+          text: pluginApi?.tr("panel.title")
           pointSize: Style.fontSizeL
           font.weight: Font.DemiBold
           color: Color.mOnSurface
@@ -456,7 +456,7 @@ Item {
 
       NText {
         Layout.fillWidth: true
-        text: pluginApi?.tr("panel.subtitle") || "Select a default application for each MIME type. Changes are written to ~/.config/mimeapps.list."
+        text: pluginApi?.tr("panel.subtitle")
         pointSize: Style.fontSizeS
         color: Color.mOnSurfaceVariant
         wrapMode: Text.WordWrap
@@ -527,7 +527,7 @@ Item {
           NText {
             Layout.fillWidth: true
             visible: root.loading
-            text: pluginApi?.tr("panel.loading") || "Scanning desktop entries..."
+            text: pluginApi?.tr("panel.loading")
             pointSize: Style.fontSizeS
             color: Color.mOnSurfaceVariant
           }
@@ -591,7 +591,7 @@ Item {
 
                     NText {
                       Layout.fillWidth: true
-                      text: "Current: " + (currentDefaultName || currentDefault || "(none)")
+                      text: pluginApi?.tr("panel.current") + (currentDefaultName || currentDefault || pluginApi?.tr("panel.none"))
                       pointSize: Style.fontSizeS
                       color: Color.mOnSurfaceVariant
                       wrapMode: Text.WordWrap
@@ -599,7 +599,7 @@ Item {
 
                     NText {
                       Layout.fillWidth: true
-                      text: "Source: " + (defaultSource || "(not configured)")
+                      text: pluginApi?.tr("panel.source") + (defaultSource || pluginApi?.tr("panel.notConfigured"))
                       pointSize: Style.fontSizeS
                       color: Color.mOnSurfaceVariant
                       wrapMode: Text.WordWrap
@@ -611,7 +611,7 @@ Item {
 
                       NComboBox {
                         Layout.fillWidth: true
-                        label: pluginApi?.tr("panel.handler.label") || "Handler"
+                        label: pluginApi?.tr("panel.handler.label")
                         model: root.allHandlers[mimeType] || []
                         currentKey: selectedDesktop
                         enabled: !applying && !root.loading && !root.applying
@@ -625,7 +625,7 @@ Item {
                       }
 
                       NButton {
-                        text: applying ? (pluginApi?.tr("panel.apply.saving") || "Saving...") : (pluginApi?.tr("panel.apply.button") || "Apply")
+                        text: applying ? pluginApi?.tr("panel.apply.saving") : pluginApi?.tr("panel.apply.button")
                         icon: "check"
                         enabled: !applying && !root.loading && !root.applying && selectedDesktop !== "" && selectionDirty
                         onClicked: root.applyDefault(sourceIndex)
@@ -729,7 +729,7 @@ Item {
                 Item { Layout.fillWidth: true }
 
                 NButton {
-                  text: root.batchApplying ? (pluginApi?.tr("panel.apply.saving") || "Saving...") : (pluginApi?.tr("panel.apply.button") || "Apply")
+                  text: root.batchApplying ? pluginApi?.tr("panel.apply.saving") : pluginApi?.tr("panel.apply.button")
                   icon: "check"
                   enabled: !root.loading && !root.applying && !root.batchApplying && root.hasPendingCommonChanges()
                   onClicked: root.startBatchApply()

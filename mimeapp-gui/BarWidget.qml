@@ -16,7 +16,7 @@ NIconButton {
   applyUiScale: false
   customRadius: Style.radiusL
   icon: "file-text"
-  tooltipText: pluginApi?.tr("bar.tooltip") || "MIME App Defaults"
+  tooltipText: pluginApi?.tr("bar.tooltip")
 
   onClicked: {
     pluginApi?.openPanel(root.screen, root)

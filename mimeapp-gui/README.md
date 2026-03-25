@@ -33,7 +33,6 @@ Example commands:
 
 ```bash
 qs -c noctalia-shell ipc call plugin:mimeapp-gui open
-qs -c noctalia-shell ipc call plugin:mimeapp-gui toggle
 ```
 
 Example `.desktop` `Exec` line:
@@ -44,5 +43,5 @@ Exec=qs -c noctalia-shell ipc call plugin:mimeapp-gui open
 
 ## Features
 
-- The "Coomon" tab visually groups common types (browsers, images, music, video, archives, etc.) and displays typical file extensions beside each group. 
+- The "Common" tab visually groups common types (browsers, images, music, video, archives, etc.) and displays typical file extensions beside each group. 
 - Changing a default updates only the selected MIME type in `~/.config/mimeapps.list`.
