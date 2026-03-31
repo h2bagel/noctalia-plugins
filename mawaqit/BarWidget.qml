@@ -30,12 +30,12 @@ Item {
   readonly property bool hidePrayerName: cfg.hidePrayerName ?? defaults.hidePrayerName ?? false
 
   readonly property string widgetIcon:   cfg.widgetIcon     ?? defaults.widgetIcon     ?? "building-mosque"
+  readonly property bool   dynamicIcon:  cfg.dynamicIcon    ?? defaults.dynamicIcon    ?? false
   readonly property string textColor:    cfg.textColor      ?? defaults.textColor      ?? "none"
   readonly property string iconColor:    cfg.iconColor      ?? defaults.iconColor      ?? "none"
   readonly property string activeColor:  cfg.activeColor    ?? defaults.activeColor    ?? "primary"
 
   readonly property bool use12h:   Settings.data.location.use12hourFormat
-  readonly property bool isJumuah: new Date().getDay() === 5
 
   readonly property var    mainInstance:   pluginApi?.mainInstance
   readonly property var    prayerTimings:  mainInstance?.prayerTimings  ?? null
@@ -45,6 +45,7 @@ Item {
   readonly property int    secondsToNext:  mainInstance?.secondsToNext  ?? -1
   readonly property string nextPrayerName: mainInstance?.nextPrayerName ?? ""
   readonly property bool   azanPlaying:    mainInstance?.azanPlaying    ?? false
+  readonly property bool   isJumuah:       mainInstance?.isJumuah       ?? false
 
   readonly property int    secondsElapsed:  mainInstance?.secondsElapsed ?? -1
   readonly property string lastPrayerName:  mainInstance?.lastPrayerName ?? ""
@@ -65,8 +66,7 @@ Item {
   }
 
   readonly property string lastPrayerLabel: {
-    if (lastPrayerName === "Dhuhr" && isJumuah) return "Jumu'ah"
-    return lastPrayerName
+    return pluginApi?.tr(mainInstance?.getPrayer(lastPrayerName)?.labelKey ?? "")
   }
 
   readonly property string nextPrayerTimeStr: {
@@ -103,6 +103,12 @@ Item {
   readonly property string tooltipText: {
     if (!prayerTimings) return pluginApi?.tr("widget.tooltip.noData")
     return `${nextPrayerLabel}: ${nextPrayerTimeStr}\n${pluginApi?.tr("widget.tooltip.countdown")}: ${countdownStr}`
+  }
+
+  readonly property string displayIcon: {
+    if (!dynamicIcon || (!nextPrayerName && !lastPrayerName)) return root.widgetIcon
+
+    return mainInstance?.getPrayer(isElapsed ? lastPrayerName : nextPrayerName)?.icon
   }
 
   readonly property string displayText: {
@@ -189,7 +195,7 @@ Item {
       visible: !isVertical
 
       NIcon {
-        icon: root.widgetIcon
+        icon: root.displayIcon
         pointSize: root.iconSize
         color: Color.resolveColorKey(prayerNow || isElapsed ? root.activeColor : root.iconColor)
         Layout.alignment: Qt.AlignVCenter

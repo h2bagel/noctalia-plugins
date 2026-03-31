@@ -127,8 +127,12 @@
       "header": "Styling"
     },
     "widgetIcon": {
-      "label": "Bar icon",
-      "desc": "Icon name from the icon set used by Noctalia (e.g. building-mosque, moon-stars, star)."
+      "label": "Default bar icon",
+      "desc": "Default icon to be used by the widget"
+    },
+    "dynamicIcon": {
+      "label": "Dynamic prayer icon",
+      "desc": "Use next/previous prayer in the bar widget"
     },
     "textColor": {
       "label": "Bar text color",

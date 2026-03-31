@@ -51,6 +51,7 @@ ColumnLayout {
   property int    valueHijriDayOffset:    cfg.hijriDayOffset    ?? defaults.hijriDayOffset    ?? 0
   property int    valueWeekStartDay:      cfg.weekStartDay      ?? defaults.weekStartDay      ?? 1
   property string valueWidgetIcon:        cfg.widgetIcon        ?? defaults.widgetIcon        ?? "building-mosque"
+  property bool   valueDynamicIcon:       cfg.dynamicIcon       ?? defaults.dynamicIcon       ?? false
   property string valueTextColor:         cfg.textColor         ?? defaults.textColor         ?? "none"
   property string valueIconColor:         cfg.iconColor         ?? defaults.iconColor         ?? "none"
   property string valueActiveColor:       cfg.activeColor       ?? defaults.activeColor       ?? "primary"
@@ -286,6 +287,14 @@ ColumnLayout {
     }
   }
 
+  NToggle {
+    Layout.fillWidth: true
+    label: pluginApi?.tr("settings.dynamicIcon.label")
+    description: pluginApi?.tr("settings.dynamicIcon.desc")
+    checked: root.valueDynamicIcon
+    onToggled: checked => root.valueDynamicIcon = checked
+  }
+
   NColorChoice {
     label: pluginApi?.tr("settings.textColor.label")
     currentKey: root.valueTextColor
@@ -425,6 +434,7 @@ ColumnLayout {
     pluginApi.pluginSettings.tuneMaghrib       = root.valueTuneMaghrib
     pluginApi.pluginSettings.tuneIsha          = root.valueTuneIsha
     pluginApi.pluginSettings.widgetIcon        = root.valueWidgetIcon
+    pluginApi.pluginSettings.dynamicIcon       = root.valueDynamicIcon
     pluginApi.pluginSettings.textColor         = root.valueTextColor
     pluginApi.pluginSettings.iconColor         = root.valueIconColor
     pluginApi.pluginSettings.activeColor       = root.valueActiveColor

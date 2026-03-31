@@ -53,12 +53,14 @@ Item {
   readonly property string hijriMonthNameEn: mainInstance?.hijriMonthNameEn ?? ""
   readonly property int    hijriMonthDays:   mainInstance?.hijriMonthDays   ?? 30
   readonly property string gregorianDateStr: mainInstance?.gregorianDateStr ?? ""
+  readonly property var    prayerOrder:      mainInstance?.prayerOrder      ?? []
+  readonly property bool   isJumuah:         mainInstance?.isJumuah         ?? false
+
 
   readonly property bool prayerNow: secondsToNext === 0 && nextPrayerName !== ""
 
   // ── Week / Jumu'ah ────────────────────────────────────────────────────
   readonly property int  weekStartDay: parseInt(cfg.weekStartDay ?? defaults.weekStartDay ?? 1)
-  readonly property bool isJumuah:     new Date().getDay() === 5
 
   readonly property color countdownColor: {
     if (nextPrayerName === "Imsak"   && isRamadan) return Color.mSecondary
@@ -330,16 +332,6 @@ Item {
     if (m > 0) return `${m}m ${s.toString().padStart(2,"0")}s`
     return `${s}s`
   }
-
-  readonly property var prayerOrder: [
-    { key: "Imsak",   labelKey: "panel.imsak",   icon: "moon"       },
-    { key: "Fajr",    labelKey: "panel.fajr",    icon: "sunrise"    },
-    { key: "Sunrise", labelKey: "panel.sunrise", icon: "sun"        },
-    { key: "Dhuhr",   labelKey: isJumuah ? "panel.jumuah" : "panel.dhuhr", icon: isJumuah ? "sun-high" : "sun-high" },
-    { key: "Asr",     labelKey: "panel.asr",     icon: "sun-low"    },
-    { key: "Maghrib", labelKey: "panel.maghrib", icon: "sunset"     },
-    { key: "Isha",    labelKey: "panel.isha",    icon: "moon-stars" }
-  ]
 
   Rectangle {
     id: panelContainer

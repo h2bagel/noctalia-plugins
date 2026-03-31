@@ -38,6 +38,7 @@
       "tuneMaghrib": 0,
       "tuneIsha": 0,
       "widgetIcon": "building-mosque",
+      "dynamicIcon": false,
       "textColor": "none",
       "iconColor": "none",
       "activeColor": "primary"
