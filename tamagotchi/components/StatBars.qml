@@ -81,12 +81,12 @@ RowLayout {
 					font.pixelSize: Style.fontSizeXXL
 			}
 
-			// TODO: Add setting to toggle this
 			Text {
 					anchors.horizontalCenter: parent.horizontalCenter
 					anchors.top: parent.bottom
 					anchors.topMargin: Style.marginXS
 					text: root.value + "%"
+					opacity: (pluginApi?.pluginSettings?.showPercentage ?? false) ? 1 : 0
 					font.pixelSize: Style.fontSizeM
 					color: "white"
 			}

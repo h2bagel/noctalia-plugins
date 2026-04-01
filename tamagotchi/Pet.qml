@@ -153,8 +153,7 @@ Item {
 				}
 			}
 
-
-		SoundEffect { id: soundEat;     source: "sounds/eat.wav"    }
+		SoundEffect { id: soundEat;	source: "sounds/eat.wav";	volume: pluginApi?.pluginSettings?.volume ?? 1.0 }
     DropArea {
         anchors.fill: parent
 				keys: ["food"]

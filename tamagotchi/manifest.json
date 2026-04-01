@@ -11,7 +11,8 @@
   "entryPoints": {
     "main": "Main.qml",
     "barWidget": "BarWidget.qml",
-    "panel": "Panel.qml"
+    "panel": "Panel.qml",
+    "settings": "Settings.qml"
   },
   "dependencies": {
     "plugins": []
@@ -21,7 +22,10 @@
       "hunger": 100,
       "happiness": 100,
       "cleanliness": 100,
-      "energy": 100
+      "energy": 100,
+      "volume": 0.5,
+      "showDebug": false,
+      "showPercentage": false
     }
   }
 }

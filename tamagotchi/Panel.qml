@@ -56,9 +56,9 @@ Item {
 				}
 
 
-				// TODO: Add setting to toggle this
-        // DebugButtons {
-        //     Layout.alignment: Qt.AlignHCenter
-        // }
+				DebugButtons {
+            pluginApi: root.pluginApi
+            Layout.alignment: Qt.AlignHCenter
+        }
     }
 }

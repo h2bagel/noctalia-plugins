@@ -6,12 +6,16 @@ Row {
     id: root
     spacing: Style.marginXS
 
+    property var pluginApi: null
+    opacity: (pluginApi?.pluginSettings?.showDebug ?? false) ? 1.0 : 0.0
+
+
     component ActionBtn: Rectangle {
         id: btn
         property string icon:    "●"
         property string label:   "Acción"
         property var    action
-        property bool   enabled: true
+				property bool   enabled: true
 
         width:  60
         height: 56
@@ -36,7 +40,7 @@ Row {
 
         Column {
             anchors.centerIn: parent
-            spacing: Style.spacingS
+            spacing: Style.marginS
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text:           btn.icon
@@ -68,24 +72,24 @@ Row {
     ActionBtn {
         icon:   "🍗"
         label:  "-10 Comer"
-        action: function() { pluginApi?.mainInstance?.feed(-10) }
+        action: function() { if(pluginApi.mainInstance) pluginApi.mainInstance.feed(-10) }
     }
 
     ActionBtn {
         icon:   "🎮"
         label:  "-10 Jugar"
-        action: function() { pluginApi?.mainInstance?.happiness += -10 }
+        action: function() { if(pluginApi.mainInstance) pluginApi.mainInstance.happiness += -10 }
     }
 
     ActionBtn {
         icon:   "🧼"
         label:  "-10 Limpieza"
-        action: function() { pluginApi?.mainInstance?.clean(-10) }
+        action: function() { if(pluginApi.mainInstance) pluginApi.mainInstance.clean(-10) }
     }
 
     ActionBtn {
         icon:   pluginApi?.mainInstance?.petState === "sleeping" ? "☀️" : "💤"
         label:  "-10 Dormir"
-        action: function() { pluginApi?.mainInstance?.energy += -10 }
+        action: function() { if(pluginApi.mainInstance) pluginApi.mainInstance.energy += -10 }
     }
 }
