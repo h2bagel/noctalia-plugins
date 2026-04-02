@@ -11,14 +11,16 @@
   "license": "MIT",
   "entryPoints": {
     "barWidget": "BarWidget.qml",
-    "panel": "Panel.qml"
+    "panel": "Panel.qml",
+    "settings": "Settings.qml"
   },
   "dependencies": {
     "plugins": []
   },
   "metadata": {
     "defaultSettings": {
-      "iconColor": "mPrimary"
+      "iconColor": "mPrimary",
+      "delay" : 20
     }
   }
 }
