@@ -30,6 +30,5 @@ Install the following package:
 ## Credits
 
 - Original plugin by **Mathew-D**
-- Contributor: **sima** (`@kevichi7`)
-
+- Contributor: **sima** (`@kevichi7`) - fixed the monitor source and destination dropdown selection bug
 
