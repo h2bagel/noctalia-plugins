@@ -234,21 +234,21 @@ jobs:
               file_title=$(echo "$line" | sed 's/diff --git a\/\(.*\.qml\) .*/\1/g')
               echo "Checking file: $file_title"
 
-              if [[ "$file_title" = */BarWidget.qml ]]; then
+              if [[ "$file_title" == */BarWidget.qml ]]; then
                 inBarWidget=true
-              elif [[ "$file_title" = */DesktopWidget.qml ]]; then
+              elif [[ "$file_title" == */DesktopWidget.qml ]]; then
                 inDesktopWidget=true
-              elif [[ "$file_title" = */DesktopWidgetSettings.qml ]]; then
+              elif [[ "$file_title" == */DesktopWidgetSettings.qml ]]; then
                 inDesktopWidgetSettings=true
-              elif [[ "$file_title" = */ControlCenterWidget.qml ]]; then
+              elif [[ "$file_title" == */ControlCenterWidget.qml ]]; then
                 inControlCenterWidget=true
-              elif [[ "$file_title" = */LauncherProvider.qml ]]; then
+              elif [[ "$file_title" == */LauncherProvider.qml ]]; then
                 inLauncherProvider=true
-              elif [[ "$file_title" = */Main.qml ]]; then
+              elif [[ "$file_title" == */Main.qml ]]; then
                 inMain=true
-              elif [[ "$file_title" = */Panel.qml ]]; then
+              elif [[ "$file_title" == */Panel.qml ]]; then
                 inPanel=true
-              elif [[ "$file_title" = */Settings.qml ]]; then
+              elif [[ "$file_title" == */Settings.qml ]]; then
                 inSettings=true
               fi
             elif echo "$line" | grep -E "^@@" >/dev/null; then
