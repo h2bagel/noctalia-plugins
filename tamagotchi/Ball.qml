@@ -20,13 +20,20 @@ Rectangle {
 		property bool canTriggerPlay: true
 		property real speedThreshold: 15
 
-		Text{
-			text: "⚽"
-			font.pixelSize: root.width
-			anchors.centerIn: parent
-			rotation: root.rotationAngle
-			opacity: pluginApi?.mainInstance?.petState === "sleeping" ?	0 : 1
-		}
+    Image {
+        id: sprite
+        anchors.centerIn: parent
+
+        width:  root.width
+				height: root.height
+
+        source: "assets/ball.png"
+
+        fillMode: Image.PreserveAspectFit
+        smooth: false
+				opacity: pluginApi?.mainInstance?.petState === "sleeping" ?	0 : 1
+				rotation: root.rotationAngle
+			}
 
 		Timer {
 				id: playCooldown
