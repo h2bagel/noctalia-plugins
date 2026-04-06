@@ -17,6 +17,25 @@
       "lastUpdated": "2026-02-04T23:08:01-07:00"
     },
     {
+      "id": "air-quality",
+      "name": "Air Quality",
+      "version": "1.0.0",
+      "official": false,
+      "author": "adriamartin91",
+      "description": "Displays real-time air quality data from Open-Meteo with EPA color coding. Shows AQI index and pollutant breakdown.",
+      "repository": "https://github.com/noctalia-dev/noctalia-plugins",
+      "minNoctaliaVersion": "3.6.0",
+      "license": "MIT",
+      "tags": [
+        "Bar",
+        "Desktop",
+        "Panel",
+        "System",
+        "Utility"
+      ],
+      "lastUpdated": "2026-04-05T23:04:09+07:00"
+    },
+    {
       "id": "arch-updater",
       "name": "Arch Updater",
       "version": "1.0.0",
