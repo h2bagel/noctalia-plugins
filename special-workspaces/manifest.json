@@ -20,23 +20,45 @@
   "metadata": {
     "defaultSettings": {
       "mainIcon": "layout-grid",
-      "expandDirection": "down",
-      "primaryShowPill": false,
+      "expandDirection": "up",
       "primarySymbolColor": "none",
+      "primaryShowPill": true,
       "primaryPillColor": "none",
       "primarySize": 0.9,
-      "secondaryShowPill": true,
-      "secondarySymbolColor": "none",
-      "secondaryPillColor": "primary",
-      "secondarySize": 0.9,
-      "borderRadius": 1.0,
-      "focusBorderColor": "primary",
-      "panelBackgroundColor": "surface",
-      "panelBackgroundEnabled": true,
+      "primaryBorderRadius": 1.0,
+      "primaryFocusColor": "primary",
+      "panelBackgroundColor": "none",
+      "panelBackgroundEnabled": false,
       "workspaces": [
         {
           "name": "communication",
-          "icon": "message"
+          "icon": "message",
+          "symbolColor": "none",
+          "showPill": true,
+          "pillColor": "primary",
+          "size": 0.9,
+          "borderRadius": 1.0,
+          "focusColor": "primary"
+        },
+        {
+          "name": "music",
+          "icon": "music",
+          "symbolColor": "none",
+          "showPill": true,
+          "pillColor": "primary",
+          "size": 0.9,
+          "borderRadius": 1.0,
+          "focusColor": "primary"
+        },
+        {
+          "name": "agent",
+          "icon": "michelin-star",
+          "symbolColor": "none",
+          "showPill": true,
+          "pillColor": "primary",
+          "size": 0.9,
+          "borderRadius": 1.0,
+          "focusColor": "primary"
         }
       ],
       "drawer": true,
