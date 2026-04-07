@@ -11,19 +11,12 @@ Item {
 
     property var pluginApi: null
     property ShellScreen screen
-    readonly property var main: pluginApi && pluginApi.mainInstance ? pluginApi.mainInstance : null
-    readonly property var vpnList: main ? main.vpnList : []
+    readonly property var main: pluginApi?.mainInstance ?? null
+    readonly property var vpnList: main?.vpnList ?? []
     readonly property var activeList: vpnList.filter(v => v.connected || v.isLoading)
     readonly property var inactiveList: vpnList.filter(v => !v.connected && !v.isLoading)
     property real contentPreferredWidth: Math.round(500 * Style.uiScaleRatio)
     property real contentPreferredHeight: Math.min(500, mainColumn.implicitHeight + Style.marginL * 2)
-
-    function t(key: string, data) : string {
-        if (!pluginApi)
-            return "";
-
-        return pluginApi.tr(key, data);
-    }
 
     Component.onCompleted: {
         if (main) main.refresh()
@@ -54,7 +47,7 @@ Item {
                     }
 
                     NLabel {
-                        label: t("common.vpn")
+                        label: pluginApi?.tr("common.vpn")
                     }
 
                     NBox {
@@ -63,7 +56,7 @@ Item {
 
                     NIconButton {
                         icon: "refresh"
-                        tooltipText: t("common.refresh")
+                        tooltipText: pluginApi?.tr("common.refresh")
                         baseSize: Style.baseWidgetSize * 0.8
                         enabled: true
                         onClicked: {
@@ -75,7 +68,7 @@ Item {
 
                     NIconButton {
                         icon: "close"
-                        tooltipText: t("common.close")
+                        tooltipText: pluginApi?.tr("common.close")
                         baseSize: Style.baseWidgetSize * 0.8
                         onClicked: pluginApi.closePanel(pluginApi.panelOpenScreen)
                     }
@@ -113,7 +106,7 @@ Item {
                             spacing: Style.marginS
 
                             NLabel {
-                                label: t("common.connected")
+                                label: pluginApi?.tr("common.connected")
                                 Layout.fillWidth: true
                             }
                         }
@@ -153,7 +146,7 @@ Item {
                             spacing: Style.marginS
 
                             NLabel {
-                                label: t("common.disconnected")
+                                label: pluginApi?.tr("common.disconnected")
                                 Layout.fillWidth: true
                             }
                         }
@@ -200,21 +193,21 @@ Item {
                         }
 
                         NText {
-                            text: t("panel.emptyTitle")
+                            text: pluginApi?.tr("panel.emptyTitle")
                             pointSize: Style.fontSizeL
                             color: Color.mOnSurfaceVariant
                             Layout.alignment: Qt.AlignHCenter
                         }
 
                         NText {
-                            text: t("panel.emptyDescription")
+                            text: pluginApi?.tr("panel.emptyDescription")
                             pointSize: Style.fontSizeS
                             color: Color.mOnSurfaceVariant
                             Layout.alignment: Qt.AlignHCenter
                         }
 
                         NButton {
-                            text: t("common.refresh")
+                            text: pluginApi?.tr("common.refresh")
                             icon: "refresh"
                             Layout.alignment: Qt.AlignHCenter
                             onClicked: { 

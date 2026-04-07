@@ -6,16 +6,9 @@ import qs.Services.UI
 QtObject {
     id: root
 
-    readonly property var pluginSettings: {
-        return pluginApi && pluginApi.pluginSettings ? pluginApi.pluginSettings : {
-        };
-    }
+    readonly property var pluginSettings: pluginApi?.pluginSettings ?? ({})
 
-    readonly property var toast: {
-        return root.pluginSettings.disableToastNotifications
-            ? null
-            : ToastService
-    }
+    readonly property var toast: root.pluginSettings?.disableToastNotifications ? null : ToastService
 
     property var pluginApi: null
 

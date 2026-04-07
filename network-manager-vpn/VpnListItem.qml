@@ -77,7 +77,7 @@ NBox {
                         NText {
                             id: connectedText
                             anchors.centerIn: parent
-                            text: pluginApi?.tr("common.connected") ||"Connected"
+                            text: pluginApi?.tr("common.connected")
                             pointSize: Style.fontSizeXXS
                             color: Color.mOnPrimary
                         }
@@ -98,7 +98,7 @@ NBox {
 
                 NButton {
                     visible: root.isConnected
-                    text: pluginApi?.tr("common.disconnect") ||"Disconnect"
+                    text: pluginApi?.tr("common.disconnect")
                     outlined: !hovered
                     fontSize: Style.fontSizeS
                     backgroundColor: Color.mError
@@ -110,7 +110,7 @@ NBox {
 
                 NButton {
                     visible: !root.isConnected
-                    text: pluginApi?.tr("common.connect") ||"Connect"
+                    text: pluginApi?.tr("common.connect")
                     outlined: !hovered
                     fontSize: Style.fontSizeS
                     enabled: !root.isLoading
