@@ -10,6 +10,7 @@
   "panel": {
     "activeSessions": "Aktive Sitzungen",
     "hosts": "Hosts",
+    "search": "Hosts suchen...",
     "noActive": "Keine aktiven Sitzungen",
     "noHosts": "Keine Hosts in ~/.ssh/config",
     "refresh": "Aktualisieren",
