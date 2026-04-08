@@ -43,6 +43,7 @@ Item {
 
   property string searchText: ""
   property string selectedType: "all"
+  property string selectedResolution: "all"
   property string sortMode: "name"
   property bool sortAscending: true
   readonly property bool singleScreenMode: Quickshell.screens.length <= 1
@@ -50,11 +51,15 @@ Item {
   property bool _applyAllDisplays: false
   property bool applyTargetExpanded: false
   property bool filterDropdownOpen: false
+  property bool resolutionDropdownOpen: false
   property bool sortDropdownOpen: false
   property bool errorDetailsExpanded: false
   property real filterDropdownX: 0
   property real filterDropdownY: 0
   property real filterDropdownWidth: 220 * Style.uiScaleRatio
+  property real resolutionDropdownX: 0
+  property real resolutionDropdownY: 0
+  property real resolutionDropdownWidth: 220 * Style.uiScaleRatio
   property real sortDropdownX: 0
   property real sortDropdownY: 0
   property real sortDropdownWidth: 220 * Style.uiScaleRatio
@@ -137,8 +142,89 @@ Item {
     return pluginApi?.tr("panel.sortName");
   }
 
+  function resolutionBadgeIcon(value) {
+    const resolution = String(value || "").toLowerCase().trim();
+    if (resolution.length === 0 || resolution === "unknown") {
+      return "";
+    }
+
+    const match = resolution.match(/(\d+)\s*[x×]\s*(\d+)/);
+    if (!match) {
+      return "";
+    }
+
+    const width = Number(match[1]);
+    const height = Number(match[2]);
+    if (isNaN(width) || isNaN(height)) {
+      return "";
+    }
+
+    const longestEdge = Math.max(width, height);
+    if (longestEdge >= 7680) {
+      return "badge-8k";
+    }
+    if (longestEdge >= 3840) {
+      return "badge-4k";
+    }
+    return "";
+  }
+
+  function resolutionBadgeLabel(value) {
+    const icon = resolutionBadgeIcon(value);
+    if (icon === "badge-8k") {
+      return "8K";
+    }
+    if (icon === "badge-4k") {
+      return "4K";
+    }
+    return "";
+  }
+
+  function resolutionText(value) {
+    const raw = String(value || "").trim();
+    if (raw.length === 0 || raw.toLowerCase() === "unknown") {
+      return "";
+    }
+    return raw;
+  }
+
+  function resolutionFilterKey(value) {
+    const resolution = String(value || "").toLowerCase().trim();
+    if (resolution.length === 0 || resolution === "unknown") {
+      return "unknown";
+    }
+
+    const match = resolution.match(/(\d+)\s*[x×]\s*(\d+)/);
+    if (!match) {
+      return "unknown";
+    }
+
+    const width = Number(match[1]);
+    const height = Number(match[2]);
+    if (isNaN(width) || isNaN(height)) {
+      return "unknown";
+    }
+
+    const longestEdge = Math.max(width, height);
+    if (longestEdge >= 7680) {
+      return "8k";
+    }
+    if (longestEdge >= 3840) {
+      return "4k";
+    }
+    return "other";
+  }
+
+  function resolutionFilterLabel(value) {
+    if (value === "8k") return pluginApi?.tr("panel.filterRes8k");
+    if (value === "4k") return pluginApi?.tr("panel.filterRes4k");
+    if (value === "unknown") return pluginApi?.tr("panel.filterResUnknown");
+    return pluginApi?.tr("panel.filterResAll");
+  }
+
   function closeDropdowns() {
     filterDropdownOpen = false;
+    resolutionDropdownOpen = false;
     sortDropdownOpen = false;
   }
 
@@ -160,9 +246,26 @@ Item {
     sortDropdownOpen = true;
   }
 
+  function openResolutionDropdown() {
+    const pos = resolutionButton.mapToItem(root, 0, resolutionButton.height + Style.marginXS);
+    resolutionDropdownX = pos.x;
+    resolutionDropdownY = pos.y;
+    resolutionDropdownWidth = resolutionButton.width;
+    filterDropdownOpen = false;
+    sortDropdownOpen = false;
+    resolutionDropdownOpen = true;
+  }
+
   function applyFilterAction(action) {
     if (String(action).indexOf("type:") === 0) {
       selectedType = String(action).substring(5);
+    }
+    closeDropdowns();
+  }
+
+  function applyResolutionFilterAction(action) {
+    if (String(action).indexOf("res:") === 0) {
+      selectedResolution = String(action).substring(4);
     }
     closeDropdowns();
   }
@@ -273,6 +376,10 @@ Item {
       items = items.filter(item => String(item.type || "unknown").toLowerCase() === selectedType);
     }
 
+    if (selectedResolution !== "all") {
+      items = items.filter(item => resolutionFilterKey(item.resolution) === selectedResolution);
+    }
+
     if (query.length > 0) {
       items = items.filter(item => {
         return String(item.name || "").toLowerCase().indexOf(query) >= 0
@@ -295,7 +402,7 @@ Item {
     }
 
     visibleWallpapers = items;
-    Logger.d("LWEController", "Visible wallpapers refreshed", "count=", visibleWallpapers.length, "type=", selectedType, "sort=", sortMode, "ascending=", sortAscending, "query=", query);
+    Logger.d("LWEController", "Visible wallpapers refreshed", "count=", visibleWallpapers.length, "type=", selectedType, "resolution=", selectedResolution, "sort=", sortMode, "ascending=", sortAscending, "query=", query);
   }
 
   function reconcilePendingSelection() {
@@ -366,6 +473,7 @@ Item {
   }
   onSearchTextChanged: refreshVisibleWallpapers()
   onSelectedTypeChanged: refreshVisibleWallpapers()
+  onSelectedResolutionChanged: refreshVisibleWallpapers()
   onSortModeChanged: refreshVisibleWallpapers()
   onSortAscendingChanged: refreshVisibleWallpapers()
   onSelectedScreenNameChanged: syncSelectionOptionsFromScreen()
@@ -391,6 +499,9 @@ Item {
   onWidthChanged: {
     if (filterDropdownOpen) {
       openFilterDropdown();
+    }
+    if (resolutionDropdownOpen) {
+      openResolutionDropdown();
     }
     if (sortDropdownOpen) {
       openSortDropdown();
@@ -456,7 +567,7 @@ Item {
                 onClicked: {
                   root.scanWallpapers();
                   if (mainInstance?.hasAnyConfiguredWallpaper()) {
-                    mainInstance?.reload();
+                    mainInstance?.reload(true);
                   } else {
                     mainInstance.lastError = "";
                   }
@@ -467,7 +578,7 @@ Item {
                 enabled: mainInstance?.engineAvailable ?? false
                 icon: "player-stop"
                 tooltipText: pluginApi?.tr("panel.stop")
-                onClicked: mainInstance?.stopAll()
+                onClicked: mainInstance?.stopAll(true)
               }
 
               NIconButton {
@@ -512,6 +623,54 @@ Item {
                 icon: "x"
                 tooltipText: pluginApi?.tr("panel.searchClear")
                 onClicked: root.searchText = ""
+              }
+
+              Rectangle {
+                id: resolutionButton
+                Layout.preferredWidth: 172 * Style.uiScaleRatio
+                Layout.maximumWidth: 184 * Style.uiScaleRatio
+                Layout.preferredHeight: 42 * Style.uiScaleRatio
+                radius: Style.radiusL
+                color: Qt.alpha(Color.mSurfaceVariant, 0.42)
+                border.width: Style.borderS
+                border.color: Qt.alpha(Color.mOutline, 0.45)
+
+                RowLayout {
+                  anchors.fill: parent
+                  anchors.leftMargin: Style.marginS
+                  anchors.rightMargin: Style.marginS
+                  spacing: Style.marginXXS
+
+                  NIcon {
+                    icon: "badge-hd"
+                    pointSize: Style.fontSizeM
+                    color: Color.mOnSurface
+                  }
+
+                  NText {
+                    Layout.fillWidth: true
+                    text: root.resolutionFilterLabel(root.selectedResolution)
+                    color: Color.mOnSurface
+                    elide: Text.ElideRight
+                  }
+
+                  NIcon {
+                    icon: "chevron-down"
+                    pointSize: Style.fontSizeM
+                    color: Color.mOnSurfaceVariant
+                  }
+                }
+
+                MouseArea {
+                  anchors.fill: parent
+                  onClicked: {
+                    if (resolutionDropdownOpen) {
+                      root.closeDropdowns();
+                    } else {
+                      root.openResolutionDropdown();
+                    }
+                  }
+                }
               }
 
               Rectangle {
@@ -863,6 +1022,34 @@ Item {
                        Item { Layout.fillWidth: true }
 
                        Rectangle {
+                          visible: root.resolutionBadgeIcon(modelData.resolution).length > 0
+                          color: Qt.alpha(Color.mSurfaceVariant, 0.24)
+                          radius: Style.radiusXS
+                          implicitWidth: resolutionBadgeRow.implicitWidth + Style.marginS * 2
+                          implicitHeight: resolutionBadgeRow.implicitHeight + Style.marginXS * 2
+
+                          RowLayout {
+                            id: resolutionBadgeRow
+                            anchors.centerIn: parent
+                            spacing: Style.marginXS
+
+                            NIcon {
+                              id: resolutionBadgeIcon
+                              icon: root.resolutionBadgeIcon(modelData.resolution)
+                              pointSize: Style.fontSizeM
+                              color: Color.mOnSurfaceVariant
+                            }
+
+                            NText {
+                              text: root.resolutionBadgeLabel(modelData.resolution)
+                              color: Color.mOnSurfaceVariant
+                              font.pointSize: Style.fontSizeXS
+                              font.weight: Font.Medium
+                            }
+                          }
+                        }
+
+                       Rectangle {
                          color: Qt.alpha(Color.mSecondary, 0.18)
                          radius: Style.radiusXS
                          implicitWidth: typeBadgeText.implicitWidth + Style.marginS * 2
@@ -926,7 +1113,9 @@ Item {
                     }
 
                     NText {
-                      text: pluginApi?.tr("panel.empty")
+                      text: root.wallpaperItems.length === 0
+                        ? pluginApi?.tr("panel.emptyAll")
+                        : pluginApi?.tr("panel.emptyFiltered")
                       color: Color.mOnSurfaceVariant
                     }
                   }
@@ -995,6 +1184,95 @@ Item {
                        color: Color.mOnSurface
                        font.weight: Font.Bold
                        elide: Text.ElideRight
+                     }
+
+                     RowLayout {
+                       Layout.fillWidth: true
+                       spacing: Style.marginXS
+
+                       Rectangle {
+                         color: Qt.alpha(Color.mPrimary, 0.14)
+                         radius: Style.radiusXS
+                         implicitWidth: sidebarIdBadgeText.implicitWidth + Style.marginS * 2
+                         implicitHeight: sidebarIdBadgeText.implicitHeight + Style.marginXS * 2
+
+                         NText {
+                           id: sidebarIdBadgeText
+                           anchors.centerIn: parent
+                           text: root.selectedWallpaperData ? root.selectedWallpaperData.id : ""
+                           color: Color.mPrimary
+                           font.pointSize: Style.fontSizeXS
+                           font.weight: Font.Medium
+                         }
+                       }
+
+                       Item { Layout.fillWidth: true }
+
+                       Rectangle {
+                         visible: root.selectedWallpaperData && root.resolutionBadgeLabel(root.selectedWallpaperData.resolution).length > 0
+                         color: Qt.alpha(Color.mSurfaceVariant, 0.24)
+                         radius: Style.radiusXS
+                         implicitWidth: sidebarResolutionBadgeRow.implicitWidth + Style.marginS * 2
+                         implicitHeight: sidebarResolutionBadgeRow.implicitHeight + Style.marginXS * 2
+
+                         RowLayout {
+                           id: sidebarResolutionBadgeRow
+                           anchors.centerIn: parent
+                           spacing: Style.marginXS
+
+                           NIcon {
+                             icon: root.selectedWallpaperData ? root.resolutionBadgeIcon(root.selectedWallpaperData.resolution) : ""
+                             pointSize: Style.fontSizeM
+                             color: Color.mOnSurfaceVariant
+                           }
+
+                           NText {
+                             id: sidebarResolutionBadgeText
+                             text: root.selectedWallpaperData ? root.resolutionBadgeLabel(root.selectedWallpaperData.resolution) : ""
+                             color: Color.mOnSurfaceVariant
+                             font.pointSize: Style.fontSizeXS
+                             font.weight: Font.Medium
+                           }
+                         }
+                       }
+
+                       Rectangle {
+                         color: Qt.alpha(Color.mSecondary, 0.18)
+                         radius: Style.radiusXS
+                         implicitWidth: sidebarTypeBadgeText.implicitWidth + Style.marginS * 2
+                         implicitHeight: sidebarTypeBadgeText.implicitHeight + Style.marginXS * 2
+
+                         NText {
+                           id: sidebarTypeBadgeText
+                           anchors.centerIn: parent
+                           text: root.selectedWallpaperData ? root.typeLabel(root.selectedWallpaperData.type) : ""
+                           color: Color.mSecondary
+                           font.pointSize: Style.fontSizeXS
+                           font.weight: Font.Medium
+                         }
+                       }
+
+                       Rectangle {
+                         color: root.selectedWallpaperData && root.selectedWallpaperData.dynamic
+                           ? Qt.alpha(Color.mTertiary, 0.18)
+                           : Qt.alpha(Color.mOutline, 0.18)
+                         radius: Style.radiusXS
+                         implicitWidth: sidebarMotionBadgeText.implicitWidth + Style.marginS * 2
+                         implicitHeight: sidebarMotionBadgeText.implicitHeight + Style.marginXS * 2
+
+                         NText {
+                           id: sidebarMotionBadgeText
+                           anchors.centerIn: parent
+                           text: root.selectedWallpaperData
+                             ? (root.selectedWallpaperData.dynamic
+                               ? pluginApi?.tr("panel.dynamicBadge")
+                               : pluginApi?.tr("panel.staticBadge"))
+                             : ""
+                           color: root.selectedWallpaperData && root.selectedWallpaperData.dynamic ? Color.mTertiary : Color.mOnSurfaceVariant
+                           font.pointSize: Style.fontSizeXS
+                           font.weight: Font.Medium
+                         }
+                       }
                      }
 
                      RowLayout {
@@ -1258,6 +1536,58 @@ Item {
     z: 900
     acceptedButtons: Qt.LeftButton | Qt.RightButton
     onClicked: root.closeDropdowns()
+  }
+
+  Rectangle {
+    visible: root.resolutionDropdownOpen
+    x: root.resolutionDropdownX
+    y: root.resolutionDropdownY
+    width: root.resolutionDropdownWidth
+    height: Math.min(210 * Style.uiScaleRatio, resolutionList.contentHeight + 2 * Style.marginS)
+    radius: Style.radiusL
+    color: Qt.alpha(Color.mSurface, 0.96)
+    border.width: Style.borderS
+    border.color: Qt.alpha(Color.mOutline, 0.45)
+    z: 901
+
+    NListView {
+      id: resolutionList
+      anchors.fill: parent
+      anchors.margins: Style.marginS
+      clip: true
+      spacing: Style.marginXS
+      model: [
+        { "label": pluginApi?.tr("panel.filterResAll"), "action": "res:all", "selected": root.selectedResolution === "all" },
+        { "label": pluginApi?.tr("panel.filterRes4k"), "action": "res:4k", "selected": root.selectedResolution === "4k" },
+        { "label": pluginApi?.tr("panel.filterRes8k"), "action": "res:8k", "selected": root.selectedResolution === "8k" },
+        { "label": pluginApi?.tr("panel.filterResUnknown"), "action": "res:unknown", "selected": root.selectedResolution === "unknown" }
+      ]
+
+      delegate: Rectangle {
+        required property var modelData
+        width: resolutionList.availableWidth
+        height: 34 * Style.uiScaleRatio
+        radius: Style.radiusM
+        color: modelData.selected ? Qt.alpha(Color.mPrimary, 0.22) : "transparent"
+        border.width: modelData.selected ? 1 : 0
+        border.color: Qt.alpha(Color.mPrimary, 0.45)
+
+        NText {
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.left: parent.left
+          anchors.leftMargin: Style.marginS
+          text: modelData.label
+          color: modelData.selected ? Color.mPrimary : Color.mOnSurface
+          font.weight: modelData.selected ? Font.Medium : Font.Normal
+        }
+
+        MouseArea {
+          anchors.fill: parent
+          hoverEnabled: true
+          onClicked: root.applyResolutionFilterAction(modelData.action)
+        }
+      }
+    }
   }
 
   Rectangle {

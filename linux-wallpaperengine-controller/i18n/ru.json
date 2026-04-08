@@ -12,6 +12,11 @@
     "stop": "Остановить движок обоев",
     "settings": "Настройки плагина"
   },
+  "toast": {
+    "reloaded": "Движок обоев перезагружен",
+    "stopped": "Движок обоев остановлен",
+    "reloadSkippedNoWallpaper": "Обои не настроены, поэтому перезагружать нечего"
+  },
   "main": {
     "status": {
       "unavailable": "Движок недоступен",
@@ -29,7 +34,7 @@
     }
   },
   "panel": {
-    "title": "Linux-WallpaperEngine",
+    "title": "Wallpaper-Engine Выбор обоев",
     "sectionAudio": "Отображение и аудио",
     "sectionFeatures": "Функции",
     "installHint": "Пример установки: yay -S linux-wallpaperengine-git",
@@ -72,6 +77,8 @@
     "filterTypeWeb": "Веб",
     "filterTypeApplication": "Приложение",
     "filterResAll": "Разрешение: все",
+    "filterRes4k": "Разрешение: 4K",
+    "filterRes8k": "Разрешение: 8K",
     "filterResUnknown": "Разрешение: неизвестно",
     "filterStatic": "Статические",
     "filterDynamic": "Динамические",
@@ -90,7 +97,8 @@
     "dynamicBadge": "Динамические",
     "staticBadge": "Статические",
     "count": "Количество обоев: {count}",
-    "empty": "В исходном каталоге не найдено ни одной папки"
+    "emptyAll": "В исходном каталоге не найдено ни одних обоев",
+    "emptyFiltered": "Не найдено обоев, соответствующих текущим фильтрам"
   },
   "settings": {
     "category": {

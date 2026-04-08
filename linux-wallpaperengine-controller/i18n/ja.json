@@ -12,6 +12,11 @@
     "stop": "壁紙エンジンを停止",
     "settings": "プラグイン設定"
   },
+  "toast": {
+    "reloaded": "壁紙エンジンを再読み込みしました",
+    "stopped": "壁紙エンジンを停止しました",
+    "reloadSkippedNoWallpaper": "壁紙が設定されていないため、再読み込みする内容がありません"
+  },
   "main": {
     "status": {
       "unavailable": "エンジンは利用できません",
@@ -29,7 +34,7 @@
     }
   },
   "panel": {
-    "title": "Linux-WallpaperEngine",
+    "title": "Wallpaper-Engine 壁紙セレクター",
     "sectionAudio": "ディスプレイとオーディオ",
     "sectionFeatures": "機能",
     "installHint": "インストール例: yay -S linux-wallpaperengine-git",
@@ -72,6 +77,8 @@
     "filterTypeWeb": "ウェブ",
     "filterTypeApplication": "アプリケーション",
     "filterResAll": "解像度: すべて",
+    "filterRes4k": "解像度: 4K",
+    "filterRes8k": "解像度: 8K",
     "filterResUnknown": "解像度: 不明",
     "filterStatic": "静的",
     "filterDynamic": "動的",
@@ -90,7 +97,8 @@
     "dynamicBadge": "動的",
     "staticBadge": "静的",
     "count": "壁紙数: {count}",
-    "empty": "ソースディレクトリにフォルダーが見つかりません"
+    "emptyAll": "ソースディレクトリに壁紙が見つかりません",
+    "emptyFiltered": "条件に一致する壁紙が見つかりません"
   },
   "settings": {
     "category": {

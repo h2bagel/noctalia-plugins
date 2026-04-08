@@ -12,6 +12,11 @@
     "stop": "停止壁纸引擎",
     "settings": "插件设置"
   },
+  "toast": {
+    "reloaded": "壁纸引擎已重新加载",
+    "stopped": "壁纸引擎已停止",
+    "reloadSkippedNoWallpaper": "当前未配置壁纸，因此无需重新加载"
+  },
   "main": {
     "status": {
       "unavailable": "引擎不可用",
@@ -29,7 +34,7 @@
     }
   },
   "panel": {
-    "title": "Linux-WallpaperEngine",
+    "title": "Wallpaper-Engine 壁纸选择器",
     "sectionAudio": "显示与音频",
     "sectionFeatures": "功能",
     "installHint": "安装示例：yay -S linux-wallpaperengine-git",
@@ -72,6 +77,8 @@
     "filterTypeWeb": "网页",
     "filterTypeApplication": "应用",
     "filterResAll": "分辨率：全部",
+    "filterRes4k": "分辨率：4K",
+    "filterRes8k": "分辨率：8K",
     "filterResUnknown": "分辨率：未知",
     "filterStatic": "静态",
     "filterDynamic": "动态",
@@ -90,7 +97,8 @@
     "dynamicBadge": "动态",
     "staticBadge": "静态",
     "count": "壁纸数量：{count}",
-    "empty": "源目录中未找到任何文件夹"
+    "emptyAll": "源目录中未找到任何壁纸",
+    "emptyFiltered": "源目录中未找到符合条件的壁纸"
   },
   "settings": {
     "category": {
