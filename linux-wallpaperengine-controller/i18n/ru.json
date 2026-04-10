@@ -35,6 +35,11 @@
   },
   "panel": {
     "title": "Wallpaper-Engine Выбор обоев",
+    "statusChecking": "Проверка",
+    "statusUnavailable": "Недоступно",
+    "statusRunning": "Работает",
+    "statusReady": "Настроено",
+    "statusStopped": "Остановлено",
     "sectionAudio": "Отображение и аудио",
     "sectionFeatures": "Функции",
     "installHint": "Пример установки: yay -S linux-wallpaperengine-git",

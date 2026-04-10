@@ -35,6 +35,11 @@
   },
   "panel": {
     "title": "Wallpaper-Engine 壁纸选择器",
+    "statusChecking": "检查中",
+    "statusUnavailable": "不可用",
+    "statusRunning": "运行中",
+    "statusReady": "已配置",
+    "statusStopped": "已停止",
     "sectionAudio": "显示与音频",
     "sectionFeatures": "功能",
     "installHint": "安装示例：yay -S linux-wallpaperengine-git",

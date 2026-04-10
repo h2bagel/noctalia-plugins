@@ -35,6 +35,11 @@
   },
   "panel": {
     "title": "Wallpaper-Engine 壁紙セレクター",
+    "statusChecking": "確認中",
+    "statusUnavailable": "利用不可",
+    "statusRunning": "実行中",
+    "statusReady": "設定済み",
+    "statusStopped": "停止中",
     "sectionAudio": "ディスプレイとオーディオ",
     "sectionFeatures": "機能",
     "installHint": "インストール例: yay -S linux-wallpaperengine-git",

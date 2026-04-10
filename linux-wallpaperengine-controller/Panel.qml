@@ -81,6 +81,37 @@ Item {
   property string wallpaperPropertyRequestPath: ""
   readonly property bool hasRuntimeError: !!(mainInstance?.lastError && mainInstance.lastError.length > 0)
   readonly property bool extraPropertiesEditorEnabled: cfg.enableExtraPropertiesEditor ?? defaults.enableExtraPropertiesEditor ?? true
+  readonly property string engineStatusBadgeText: {
+    if (mainInstance?.checkingEngine ?? false) {
+      return pluginApi?.tr("panel.statusChecking");
+    }
+    if (!(mainInstance?.engineAvailable ?? false)) {
+      return pluginApi?.tr("panel.statusUnavailable");
+    }
+    if (mainInstance?.isApplying ?? false) {
+      return pluginApi?.tr("panel.statusRunning");
+    }
+    if (mainInstance?.hasAnyConfiguredWallpaper && mainInstance.hasAnyConfiguredWallpaper()) {
+      return pluginApi?.tr("panel.statusReady");
+    }
+    return pluginApi?.tr("panel.statusStopped");
+  }
+  readonly property color engineStatusBadgeFg: {
+    if (mainInstance?.checkingEngine ?? false) {
+      return Color.mSecondary;
+    }
+    if (!(mainInstance?.engineAvailable ?? false)) {
+      return Color.mError;
+    }
+    if (mainInstance?.isApplying ?? false) {
+      return Color.mPrimary;
+    }
+    if (mainInstance?.hasAnyConfiguredWallpaper && mainInstance.hasAnyConfiguredWallpaper()) {
+      return Color.mTertiary;
+    }
+    return Color.mOnSurfaceVariant;
+  }
+  readonly property color engineStatusBadgeBg: Qt.alpha(engineStatusBadgeFg, 0.16)
   readonly property int pageCount: Math.max(1, Math.ceil(visibleWallpapers.length / Math.max(pageSize, 1)))
   readonly property bool paginationVisible: visibleWallpapers.length > pageSize
   readonly property int currentPageDisplay: visibleWallpapers.length === 0 ? 0 : currentPage + 1
@@ -1064,6 +1095,22 @@ Item {
               font.pointSize: Style.fontSizeL
               font.weight: Font.Bold
               color: Color.mOnSurface
+            }
+
+            Rectangle {
+              radius: Style.radiusXS
+              color: root.engineStatusBadgeBg
+              implicitWidth: statusBadgeText.implicitWidth + Style.marginS * 2
+              implicitHeight: statusBadgeText.implicitHeight + Style.marginXS * 2
+
+              NText {
+                id: statusBadgeText
+                anchors.centerIn: parent
+                text: root.engineStatusBadgeText
+                color: root.engineStatusBadgeFg
+                font.pointSize: Style.fontSizeXS
+                font.weight: Font.Medium
+              }
             }
 
             Item { Layout.fillWidth: true }
