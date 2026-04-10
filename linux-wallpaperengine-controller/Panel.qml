@@ -33,6 +33,7 @@ Item {
   property string selectedPath: ""
   property string pendingPath: ""
   property string selectedScaling: "fill"
+  property string selectedClamp: "clamp"
   property int selectedVolume: 100
   property bool selectedMuted: true
   property bool selectedAudioReactiveEffects: true
@@ -720,6 +721,7 @@ Item {
 
   function resetPendingToGlobalDefaults() {
     selectedScaling = String(defaults.defaultScaling || "fill");
+    selectedClamp = String(defaults.defaultClamp || "clamp");
     selectedVolume = Math.max(0, Math.min(100, Number(defaults.defaultVolume ?? 100)));
     selectedMuted = !!(defaults.defaultMuted ?? true);
     selectedAudioReactiveEffects = !!(defaults.defaultAudioReactiveEffects ?? true);
@@ -740,6 +742,7 @@ Item {
     }
 
     selectedScaling = String(screenCfg.scaling || defaults.defaultScaling || "fill");
+    selectedClamp = String(screenCfg.clamp || defaults.defaultClamp || "clamp");
     selectedVolume = Math.max(0, Math.min(100, Number(screenCfg.volume ?? defaults.defaultVolume ?? 100)));
     selectedMuted = !!(screenCfg.muted ?? defaults.defaultMuted ?? true);
     selectedAudioReactiveEffects = !!(screenCfg.audioReactiveEffects ?? defaults.defaultAudioReactiveEffects ?? true);
@@ -753,7 +756,7 @@ Item {
       return;
     }
 
-    const options = { "scaling": selectedScaling };
+    const options = { "scaling": selectedScaling, "clamp": selectedClamp };
     options.volume = selectedVolume;
     options.muted = selectedMuted;
     options.audioReactiveEffects = selectedAudioReactiveEffects;
@@ -2042,6 +2045,18 @@ Item {
                         ]
                         currentKey: root.selectedScaling
                         onSelected: key => root.selectedScaling = key
+                      }
+
+                      NComboBox {
+                        Layout.fillWidth: true
+                        label: pluginApi?.tr("panel.wallpaperClamp")
+                        model: [
+                          { "key": "clamp", "name": pluginApi?.tr("panel.clampClamp") },
+                          { "key": "border", "name": pluginApi?.tr("panel.clampBorder") },
+                          { "key": "repeat", "name": pluginApi?.tr("panel.clampRepeat") }
+                        ]
+                        currentKey: root.selectedClamp
+                        onSelected: key => root.selectedClamp = key
                       }
 
                       NSpinBox {

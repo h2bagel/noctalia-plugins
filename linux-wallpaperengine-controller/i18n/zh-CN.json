@@ -59,6 +59,7 @@
     "closePanel": "关闭面板",
     "confirmApply": "应用壁纸",
     "wallpaperScaling": "缩放",
+    "wallpaperClamp": "边界模式",
     "wallpaperVolume": "音量",
     "wallpaperMuted": "静音",
     "wallpaperAudioReactive": "音频响应效果",
@@ -78,6 +79,9 @@
     "scalingFit": "适应",
     "scalingStretch": "拉伸",
     "scalingDefault": "默认",
+    "clampClamp": "钳制",
+    "clampBorder": "边框",
+    "clampRepeat": "重复",
     "targetAllDisplays": "目标：全部显示器",
     "targetSingleDisplay": "目标：{screen}",
     "applySingleDisplay": "应用到 {screen}",
@@ -149,6 +153,10 @@
     "defaultScaling": {
       "label": "默认缩放模式",
       "description": "未设置自定义值时的默认缩放模式"
+    },
+    "defaultClamp": {
+      "label": "默认边界模式",
+      "description": "渲染壁纸时默认使用的边界处理方式"
     },
     "defaultFps": {
       "label": "默认 FPS",

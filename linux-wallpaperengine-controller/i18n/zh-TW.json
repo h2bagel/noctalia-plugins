@@ -59,6 +59,7 @@
     "closePanel": "關閉面板",
     "confirmApply": "套用壁紙",
     "wallpaperScaling": "縮放",
+    "wallpaperClamp": "邊界模式",
     "wallpaperVolume": "音量",
     "wallpaperMuted": "靜音",
     "wallpaperAudioReactive": "音訊響應效果",
@@ -78,6 +79,9 @@
     "scalingFit": "適應",
     "scalingStretch": "拉伸",
     "scalingDefault": "預設",
+    "clampClamp": "鉗制",
+    "clampBorder": "邊框",
+    "clampRepeat": "重複",
     "targetAllDisplays": "目標：全部顯示器",
     "targetSingleDisplay": "目標：{screen}",
     "applySingleDisplay": "套用到 {screen}",
@@ -149,6 +153,10 @@
     "defaultScaling": {
       "label": "預設縮放模式",
       "description": "未設定自訂值時使用的預設縮放模式"
+    },
+    "defaultClamp": {
+      "label": "預設邊界模式",
+      "description": "渲染壁紙時預設使用的邊界處理方式"
     },
     "defaultFps": {
       "label": "預設 FPS",

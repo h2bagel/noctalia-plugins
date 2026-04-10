@@ -59,6 +59,7 @@
     "closePanel": "Close panel",
     "confirmApply": "Apply wallpaper",
     "wallpaperScaling": "Scaling",
+    "wallpaperClamp": "Clamp mode",
     "wallpaperVolume": "Volume",
     "wallpaperMuted": "Mute",
     "wallpaperAudioReactive": "Audio reactive effects",
@@ -78,6 +79,9 @@
     "scalingFit": "Fit",
     "scalingStretch": "Stretch",
     "scalingDefault": "Default",
+    "clampClamp": "Clamp",
+    "clampBorder": "Border",
+    "clampRepeat": "Repeat",
     "targetAllDisplays": "Target: All displays",
     "targetSingleDisplay": "Target: {screen}",
     "applySingleDisplay": "Apply to {screen}",
@@ -149,6 +153,10 @@
     "defaultScaling": {
       "label": "Default scaling mode",
       "description": "Default scaling mode when no custom value is set"
+    },
+    "defaultClamp": {
+      "label": "Default clamp mode",
+      "description": "Default edge handling mode used when rendering wallpapers"
     },
     "defaultFps": {
       "label": "Default FPS",

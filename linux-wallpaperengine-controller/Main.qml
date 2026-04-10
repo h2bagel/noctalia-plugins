@@ -167,6 +167,7 @@ Item {
   }
 
   readonly property string defaultScaling: cfg.defaultScaling ?? defaults.defaultScaling ?? "fill"
+  readonly property string defaultClamp: cfg.defaultClamp ?? defaults.defaultClamp ?? "clamp"
   readonly property int defaultFps: cfg.defaultFps ?? defaults.defaultFps ?? 30
 
   readonly property int defaultVolume: {
@@ -200,6 +201,7 @@ Item {
     return {
       path: raw.path ?? "",
       scaling: raw.scaling ?? defaultScaling,
+      clamp: raw.clamp ?? defaultClamp,
       volume: isNaN(resolvedVolume) ? defaultVolume : Math.max(0, Math.min(100, Math.floor(resolvedVolume))),
       muted: raw.muted ?? defaultMuted,
       audioReactiveEffects: raw.audioReactiveEffects ?? defaultAudioReactiveEffects,
@@ -285,8 +287,12 @@ Item {
     pluginApi.pluginSettings.screens[screenName].path = path;
 
     const resolvedScaling = (options?.scaling || "").trim();
+    const resolvedClamp = (options?.clamp || "").trim();
     if (resolvedScaling.length > 0) {
       pluginApi.pluginSettings.screens[screenName].scaling = resolvedScaling;
+    }
+    if (resolvedClamp.length > 0) {
+      pluginApi.pluginSettings.screens[screenName].clamp = resolvedClamp;
     }
 
     if (options?.volume !== undefined) {
@@ -354,6 +360,7 @@ Item {
     ensureSettingsRoot();
 
     const resolvedScaling = (options?.scaling || "").trim();
+    const resolvedClamp = (options?.clamp || "").trim();
     const resolvedVolumeRaw = Number(options?.volume);
     const hasResolvedVolume = !isNaN(resolvedVolumeRaw);
     const resolvedVolume = hasResolvedVolume ? Math.max(0, Math.min(100, Math.floor(resolvedVolumeRaw))) : 0;
@@ -370,6 +377,9 @@ Item {
       pluginApi.pluginSettings.screens[screen.name].path = path;
       if (resolvedScaling.length > 0) {
         pluginApi.pluginSettings.screens[screen.name].scaling = resolvedScaling;
+      }
+      if (resolvedClamp.length > 0) {
+        pluginApi.pluginSettings.screens[screen.name].clamp = resolvedClamp;
       }
       if (hasResolvedVolume) {
         pluginApi.pluginSettings.screens[screen.name].volume = resolvedVolume;
@@ -488,6 +498,7 @@ Item {
       disableMouse: defaultDisableMouse,
       disableParallax: defaultDisableParallax
     };
+    let runtimeClamp = defaultClamp;
 
     for (const candidate of Quickshell.screens) {
       const candidateCfg = getScreenConfig(candidate.name);
@@ -501,12 +512,18 @@ Item {
           disableMouse: candidateCfg.disableMouse,
           disableParallax: candidateCfg.disableParallax
         };
+        runtimeClamp = String(candidateCfg.clamp || defaultClamp || "clamp");
         break;
       }
     }
 
     command.push("--fps");
     command.push(String(defaultFps));
+
+    if (runtimeClamp.length > 0) {
+      command.push("--clamp");
+      command.push(runtimeClamp);
+    }
 
     if (runtimeOptions.muted) {
       command.push("--silent");

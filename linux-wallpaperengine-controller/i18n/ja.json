@@ -59,6 +59,7 @@
     "closePanel": "パネルを閉じる",
     "confirmApply": "壁紙を適用",
     "wallpaperScaling": "拡大縮小",
+    "wallpaperClamp": "クランプモード",
     "wallpaperVolume": "音量",
     "wallpaperMuted": "ミュート",
     "wallpaperAudioReactive": "オーディオ反応効果",
@@ -78,6 +79,9 @@
     "scalingFit": "フィット",
     "scalingStretch": "ストレッチ",
     "scalingDefault": "既定",
+    "clampClamp": "Clamp",
+    "clampBorder": "Border",
+    "clampRepeat": "Repeat",
     "targetAllDisplays": "対象: すべてのディスプレイ",
     "targetSingleDisplay": "対象: {screen}",
     "applySingleDisplay": "{screen} に適用",
@@ -149,6 +153,10 @@
     "defaultScaling": {
       "label": "既定の拡大縮小モード",
       "description": "カスタム値が未設定のときに使う既定モード"
+    },
+    "defaultClamp": {
+      "label": "既定のクランプモード",
+      "description": "壁紙を描画するときに使う既定の境界処理モード"
     },
     "defaultFps": {
       "label": "既定 FPS",

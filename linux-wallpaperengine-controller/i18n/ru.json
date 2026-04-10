@@ -59,6 +59,7 @@
     "closePanel": "Закрыть панель",
     "confirmApply": "Применить обои",
     "wallpaperScaling": "Масштабирование",
+    "wallpaperClamp": "Режим зажатия",
     "wallpaperVolume": "Громкость",
     "wallpaperMuted": "Без звука",
     "wallpaperAudioReactive": "Эффекты аудиореакции",
@@ -78,6 +79,9 @@
     "scalingFit": "По размеру",
     "scalingStretch": "Растянуть",
     "scalingDefault": "По умолчанию",
+    "clampClamp": "Clamp",
+    "clampBorder": "Border",
+    "clampRepeat": "Repeat",
     "targetAllDisplays": "Цель: все дисплеи",
     "targetSingleDisplay": "Цель: {screen}",
     "applySingleDisplay": "Применить к {screen}",
@@ -149,6 +153,10 @@
     "defaultScaling": {
       "label": "Режим масштабирования по умолчанию",
       "description": "Режим масштабирования по умолчанию, если пользовательское значение не задано"
+    },
+    "defaultClamp": {
+      "label": "Режим зажатия по умолчанию",
+      "description": "Способ обработки границ, используемый по умолчанию при рендеринге обоев"
     },
     "defaultFps": {
       "label": "FPS по умолчанию",

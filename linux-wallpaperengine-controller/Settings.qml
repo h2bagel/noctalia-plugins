@@ -18,6 +18,7 @@ ColumnLayout {
   property string editIconColor: cfg.iconColor ?? defaults.iconColor ?? "none"
   property bool editEnableExtraPropertiesEditor: cfg.enableExtraPropertiesEditor ?? defaults.enableExtraPropertiesEditor ?? true
   property string editDefaultScaling: cfg.defaultScaling ?? defaults.defaultScaling ?? "fill"
+  property string editDefaultClamp: cfg.defaultClamp ?? defaults.defaultClamp ?? "clamp"
   property int editDefaultFps: cfg.defaultFps ?? defaults.defaultFps ?? 30
   property int editDefaultVolume: cfg.defaultVolume ?? defaults.defaultVolume ?? 100
   property bool editDefaultMuted: cfg.defaultMuted ?? defaults.defaultMuted ?? true
@@ -219,6 +220,19 @@ ColumnLayout {
     onSelected: key => root.editDefaultScaling = key
   }
 
+  NComboBox {
+    Layout.fillWidth: true
+    label: pluginApi?.tr("settings.defaultClamp.label")
+    description: pluginApi?.tr("settings.defaultClamp.description")
+    model: [
+      { "key": "clamp", "name": pluginApi?.tr("panel.clampClamp") },
+      { "key": "border", "name": pluginApi?.tr("panel.clampBorder") },
+      { "key": "repeat", "name": pluginApi?.tr("panel.clampRepeat") }
+    ]
+    currentKey: root.editDefaultClamp
+    onSelected: key => root.editDefaultClamp = key
+  }
+
   NToggle {
     Layout.fillWidth: true
     label: pluginApi?.tr("settings.defaultDisableMouse.label")
@@ -248,6 +262,7 @@ ColumnLayout {
     pluginApi.pluginSettings.iconColor = root.editIconColor;
     pluginApi.pluginSettings.enableExtraPropertiesEditor = root.editEnableExtraPropertiesEditor;
     pluginApi.pluginSettings.defaultScaling = root.editDefaultScaling;
+    pluginApi.pluginSettings.defaultClamp = root.editDefaultClamp;
     pluginApi.pluginSettings.defaultFps = defaultFpsSpinBox.value;
     pluginApi.pluginSettings.defaultVolume = defaultVolumeSpinBox.value;
     pluginApi.pluginSettings.defaultMuted = root.editDefaultMuted;
@@ -260,7 +275,7 @@ ColumnLayout {
     pluginApi.pluginSettings.autoApplyOnStartup = root.editAutoApplyOnStartup;
 
     pluginApi.saveSettings();
-    Logger.d("LWEController", "Settings saved", "wallpapersFolder=", root.editWallpapersFolder, "assetsDir=", root.editAssetsDir, "defaultScaling=", root.editDefaultScaling, "defaultFps=", defaultFpsSpinBox.value, "defaultVolume=", defaultVolumeSpinBox.value, "defaultMuted=", root.editDefaultMuted, "defaultAudioReactiveEffects=", root.editDefaultAudioReactiveEffects, "defaultNoAutomute=", root.editDefaultNoAutomute, "defaultDisableMouse=", root.editDefaultDisableMouse, "defaultDisableParallax=", root.editDefaultDisableParallax, "defaultNoFullscreenPause=", root.editDefaultNoFullscreenPause, "defaultFullscreenPauseOnlyActive=", root.editDefaultFullscreenPauseOnlyActive, "autoApplyOnStartup=", root.editAutoApplyOnStartup);
+    Logger.d("LWEController", "Settings saved", "wallpapersFolder=", root.editWallpapersFolder, "assetsDir=", root.editAssetsDir, "defaultScaling=", root.editDefaultScaling, "defaultClamp=", root.editDefaultClamp, "defaultFps=", defaultFpsSpinBox.value, "defaultVolume=", defaultVolumeSpinBox.value, "defaultMuted=", root.editDefaultMuted, "defaultAudioReactiveEffects=", root.editDefaultAudioReactiveEffects, "defaultNoAutomute=", root.editDefaultNoAutomute, "defaultDisableMouse=", root.editDefaultDisableMouse, "defaultDisableParallax=", root.editDefaultDisableParallax, "defaultNoFullscreenPause=", root.editDefaultNoFullscreenPause, "defaultFullscreenPauseOnlyActive=", root.editDefaultFullscreenPauseOnlyActive, "autoApplyOnStartup=", root.editAutoApplyOnStartup);
 
     if (pluginApi.mainInstance && pluginApi.mainInstance.engineAvailable) {
       Logger.d("LWEController", "Triggering engine reload after settings save");

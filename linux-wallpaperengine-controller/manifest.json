@@ -28,6 +28,7 @@
       "iconColor": "none",
       "enableExtraPropertiesEditor": true,
       "defaultScaling": "fill",
+      "defaultClamp": "clamp",
       "defaultFps": 30,
       "defaultVolume": 100,
       "defaultMuted": true,
