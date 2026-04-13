@@ -1,0 +1,35 @@
+{
+  "menu": {
+    "settings": "Configurações do widget"
+  },
+  "settings": {
+    "text": {
+      "label": "Apenas texto",
+      "desc": "O texto a exibir na barra"
+    },
+    "fortune": {
+      "label": "Modo fortune",
+      "desc": "Mostrar uma citação aleatória do fortune em vez de texto personalizado"
+    },
+    "fortuneCategory": {
+      "label": "Categoria",
+      "desc": "Limitar as citações a uma categoria fortune específica (ex. computers, science)"
+    },
+    "fortuneOffensive": {
+      "label": "Incluir ofensivo (-o)",
+      "desc": "Também retirar da base de dados fortune ofensiva"
+    },
+    "fortuneEqual": {
+      "label": "Probabilidade igual (-e)",
+      "desc": "Dar a todas as categorias a mesma probabilidade independentemente do tamanho"
+    },
+    "list": {
+      "label": "Modo lista",
+      "desc": "Mostrar uma entrada aleatória de um ficheiro de texto em vez de texto personalizado"
+    },
+    "textFile": {
+      "label": "Ficheiro de texto",
+      "desc": "Caminho para um ficheiro de texto com uma entrada por linha. Veja examples.txt para um ponto de partida."
+    }
+  }
+}

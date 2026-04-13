@@ -1,0 +1,35 @@
+{
+  "menu": {
+    "settings": "Mîhengên wîdcetê"
+  },
+  "settings": {
+    "text": {
+      "label": "Tenê nivîs",
+      "desc": "Nivîsa ku di barê de were xuyang kirin"
+    },
+    "fortune": {
+      "label": "Moda fortune",
+      "desc": "Li şûna nivîsa xwerû ramaneke tesadufî ji fortune nîşan bide"
+    },
+    "fortuneCategory": {
+      "label": "Kategorî",
+      "desc": "Ramanan bi kategoriyeke fortune-ê ya taybet ve sînordar bike (wek: computers, science)"
+    },
+    "fortuneOffensive": {
+      "label": "Naverokên saldirker bihewîne (-o)",
+      "desc": "Ji databaza fortune-ê ya saldirker jî bikşîne"
+    },
+    "fortuneEqual": {
+      "label": "Îhtîmala wekhev (-e)",
+      "desc": "Ji her kategoriyê re bêyî girêdana mezinahiyê şansek wekhev bide"
+    },
+    "list": {
+      "label": "Moda lîsteyê",
+      "desc": "Li şûna nivîsa xwerû têkelek tesadufî ji peleke nivîsê nîşan bide"
+    },
+    "textFile": {
+      "label": "Pelê nivîsê",
+      "desc": "Rêça peleke nivîsê ya bi têkelek di her rêzê de. Ji examples.txt re binêre."
+    }
+  }
+}

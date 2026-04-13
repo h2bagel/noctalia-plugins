@@ -1,0 +1,35 @@
+{
+  "menu": {
+    "settings": "Widget ayarları"
+  },
+  "settings": {
+    "text": {
+      "label": "Sadece metin",
+      "desc": "Çubukta görüntülenecek metin"
+    },
+    "fortune": {
+      "label": "Fortune modu",
+      "desc": "Özel metin yerine fortune'dan rastgele bir alıntı göster"
+    },
+    "fortuneCategory": {
+      "label": "Kategori",
+      "desc": "Alıntıları belirli bir fortune kategorisiyle sınırla (ör. computers, science)"
+    },
+    "fortuneOffensive": {
+      "label": "Saldırganı dahil et (-o)",
+      "desc": "Saldırgan fortune veritabanından da çek"
+    },
+    "fortuneEqual": {
+      "label": "Eşit olasılık (-e)",
+      "desc": "Tüm kategorilere boyutlarından bağımsız olarak eşit şans ver"
+    },
+    "list": {
+      "label": "Liste modu",
+      "desc": "Özel metin yerine metin dosyasından rastgele bir giriş göster"
+    },
+    "textFile": {
+      "label": "Metin dosyası",
+      "desc": "Her satırda bir giriş olan metin dosyasının yolu. Başlangıç noktası için examples.txt dosyasına bakın."
+    }
+  }
+}
