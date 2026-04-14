@@ -39,7 +39,7 @@ DraggableDesktopWidget {
             "for term in xdg-terminal-exec kitty alacritty foot gnome-terminal konsole st xterm; do " +
             "if command -v $term >/dev/null 2>&1; then " +
             "if [ \"$term\" = \"kitty\" ]; then " +
-            "exec kitty --config ~/.config/kitty/calendar.conf --class khal -e ikhal; " +
+            "exec kitty --class khal -e ikhal; " +
             "else " +
             "exec $term -e ikhal 2>/dev/null || exec $term -- ikhal; " +
             "fi; break; fi; done"
