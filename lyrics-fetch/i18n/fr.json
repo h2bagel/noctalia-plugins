@@ -2,7 +2,7 @@
     "settings": {
         "title": "Paramètres",
         "font": {
-            "title": "Famille de police",
+            "title": "Police de caractères",
             "desc": "Sélectionnez la police pour les paroles.",
             "placeholder": "Sélectionnez une police...",
             "search-placeholder": "Rechercher une police...",
