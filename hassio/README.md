@@ -85,6 +85,17 @@ Click the 🏠 icon in the bar to open the panel. The icon color reflects the co
 | Pulsing | Connecting / authenticating |
 | Error (red) | Disconnected |
 
+### Control Center Widget
+
+Click the 🏠 icon in the control center to open the panel. The icon color reflects the connection state:
+
+| Color | Meaning |
+|-------|---------|
+| Primary (accent) | Connected and authenticated |
+| Pulsing | Connecting / authenticating |
+| Error (red) | Disconnected |
+
+
 ### Panel - Entity List
 
 Shows your pinned entities. Each entity row displays:
@@ -116,6 +127,7 @@ hassio/
 ├── manifest.json       # Plugin metadata
 ├── Main.qml            # WebSocket service, entity state, reconnect logic
 ├── BarWidget.qml       # Bar icon with connection status
+├── ControlCenterWidget.qml # Controlcenter Icon with connection status
 ├── Panel.qml           # Main panel - entity list and browser switcher
 ├── BrowserView.qml     # Entity browser with search and pin controls
 ├── Settings.qml        # URL and token configuration
